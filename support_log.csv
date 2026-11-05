@@ -1,0 +1,66 @@
+timestamp,question,context,answer
+2026-11-03 02:11:27.658121,what is stretched cluster concept in vmware?,"across two sites using 
+asymmetrical* network 
+connectivity. 
+vSAN storage cluster or 
+vSAN HCI cluster (ESA) in a 
+stretched cluster 
+configuration 
+Yes (in VCF 9.0) Not supported in versions 
+prior to vSAN 9.0. 
+vSphere clusters stretched 
+across two sites using 
+symmetrical* network 
+connectivity. 
+vSAN storage cluster or 
+vSAN HCI cluster (ESA) in a 
+stretched cluster 
+configuration 
+Yes Supported, but less 
+common, as it would require 
+the same network 
+capabilities (bandwidth and
+
+Using vSAN ESA in a stretched cluster environment has some compelling advantages.  For more information, see the post:  
+Using the vSAN ESA in a Stretched Cluster Topology . 
+Can stretched clusters maintain data availability if there is a failure of one site and the witness host 
+appliance? 
+If they are simultaneous failures, no, as this would not meet the levels sufficient for quorum. In vSAN 7 U3 and later, data in 
+one site can fail or be taken down for maintenance, followed by a subsequent outage of","The concept of a stretched cluster in VMware refers to a configuration where vSphere clusters are stretched across two sites, allowing for seamless operation and high availability across these locations. This configuration can be set up using either symmetrical or asymmetrical network connectivity. 
+
+Within a stretched cluster, there is a requirement for a third location that acts as a witness host appliance. This witness is crucial as it helps determine quorum for the data in the cluster, preventing issues like split-brain scenarios where the same virtual machine (VM) could run and update data in both locations simultaneously.
+
+In VMware vSAN, stretched clusters take advantage of the vSAN storage cluster or vSAN HCI cluster (ESA) configurations, providing data availability even in the event of site failures, as long as there is not a simultaneous failure of the witness host appliance. Enhancements in vSAN 7 U3 and later allow for better data availability management even during maintenance phases. 
+
+Overall, stretched clusters are designed to ensure continuous data access and operational resilience across multiple sites, adapting to various network conditions and providing high availability for VMs."
+2026-11-05 23:41:14.496146,difference between stretched cluster and standalone esxi,"Using vSAN ESA in a stretched cluster environment has some compelling advantages.  For more information, see the post:  
+Using the vSAN ESA in a Stretched Cluster Topology . 
+Can stretched clusters maintain data availability if there is a failure of one site and the witness host 
+appliance? 
+If they are simultaneous failures, no, as this would not meet the levels sufficient for quorum. In vSAN 7 U3 and later, data in 
+one site can fail or be taken down for maintenance, followed by a subsequent outage of the witness host appliance, and the 
+data will remain available.  This enhancement also applies to 2 -node clusters as well.  vSAN in VCF 9.1 does introduce a 
+“manual site takeover” capability that improves the ability to recover data from a data site if one data site is in maintenance 
+mode, and the witness site fails.   This allows you to r egain availability of data and VMs for site in maintenance mode 
+following permanent failure of the other data site .
+
+exact build numbers may no",The knowledge base does not contain enough information to answer that.
+2026-11-05 23:42:48.320069,explain me about stretched cluster,"server cluster within each site.  This is most common with stretched cluster configurations using and inter -site link (ISL) 
+between sites.  Symmetrical network connectivity would describe a topology where the network capabilities connecting the 
+two sites would be the same as t he network capabilities between the client cluster and server cluster within each site.  This 
+configuration is less common, but might be found in environments where the two fault domains defining the sites in the 
+stretched topology are simply server racks or rooms sitting adjacent to each other using the same network spine.   
+Aren’t traditional storage arrays “disaggregated?”  And if so, how is this any different?  
+Yes, a traditional three-tier architecture using a storage array provides storage resources that are ""disaggregated"" from 
+compute resources.  But that approach has inherent limitations.  The design of a monolithic storage array connected to a
+
+RAF 
+44 
+ 
+8:1 Roughly 4x the aggregate raw capacit","A stretched cluster is a configuration that spans multiple physical locations, typically two data sites, to provide high availability and disaster recovery capabilities. In a stretched cluster, the data is mirrored across both sites to ensure data redundancy and resilience against site failures. 
+
+Typically, a minimum of three hosts are required in each data site for a vSAN stretched cluster. This configuration allows for data availability during site failures, although simultaneous failures of both sites and the witness host appliance would prevent maintaining quorum and, consequently, data availability. 
+
+In a vSAN stretched cluster, the effective capacity is impacted as the data is mirrored across the sites, generally resulting in about half the effective capacity compared to a traditional single-site cluster. For example, with a cluster utilizing a cluster data reduction ratio of 2:1, the effective capacity can be roughly half of the aggregate raw capacity.
+
+Additionally, advancements in vSAN 7 U3 allow for improved resilience such that data from one site can remain accessible even if the witness host appliance fails, given the appropriate conditions are met. This capability enhances the operation of stretched clusters and provides mechanisms for data recovery in case of maintenance or site failures."
